@@ -1,0 +1,35 @@
+Average Rating = AVERAGE(fact_bookings[ratings_given])
+
+Avg daily retio = DIVIDE([Revenue],[Total Booking],0)
+
+Booking % by Platform = DIVIDE([Total Booking],CALCULATE([Total Booking],ALL(fact_bookings[booking_platform]))*100)
+
+Booking % by Room class = DIVIDE([Total Booking], CALCULATE([Total Booking],  ALL(dim_rooms[room_class])  ))*100
+
+Cancellation % = DIVIDE([Total cancelled bookings],[Total Booking])
+
+DBRN = DIVIDE([Total Booking],[No of days])
+
+DSRN = DIVIDE([total capacity],[No of days])
+
+DURN = DIVIDE([Total Checked Out],[No of days])
+
+No of days = DATEDIFF(MIN(dim_date[date]),MAX(dim_date[date]),DAY)
+
+No Show rate % = DIVIDE([Total no show bookings],[Total Booking])
+
+Occupancy % = DIVIDE([Total Booking],[total capacity],0)
+
+Realisation % = 1-([Cancellation %])+([No Show rate %])
+
+Revenue = SUM(fact_bookings[revenue_realized])
+
+RevPAR = DIVIDE([Revenue],[Total Booking])
+
+Total Sucessful Booking = SUM(fact_aggregated_bookings[successful_bookings])
+
+Total no show bookings = CALCULATE([Total Booking],fact_bookings[booking_status]="No Show")
+
+Total Checked Out = CALCULATE([Total Booking],fact_bookings[booking_status]="Checked Out")
+
+total capacity = SUM(fact_aggregated_bookings[capacity])
